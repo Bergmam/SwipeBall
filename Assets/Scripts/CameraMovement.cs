@@ -14,7 +14,6 @@ public class CameraMovement : MonoBehaviour
         SwipeDetector.OnSwipe += SwipeDetectorOnSwipe;
         ballRb = transform.GetComponent<Rigidbody>();
         ballDirection = transform.forward;
-        print("originalballdirection:" + ballDirection);
     }
 
     private void SwipeDetectorOnSwipe(SwipeData data)

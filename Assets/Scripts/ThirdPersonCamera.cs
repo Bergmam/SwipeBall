@@ -8,10 +8,15 @@ using UnityEngine;
     public Transform player;
 
     private Vector3 offset;
+    private Vector3 nextOffset;
     private float speed = 1.0f;
 
-    private float startTime;
     private float journeyLength;
+
+    private bool lerpActive = false;
+    private float startTime;
+    private float lerpTime = 0.5f;
+    private Vector3 lerpTarget;
   
 
     void Start () {
@@ -20,17 +25,33 @@ using UnityEngine;
 
     void LateUpdate()
     {
-        // offset = Quaternion.AngleAxis(directionAngle, Vector3.up) * offset;
-        // transform.position = player.position + offset;
-     // float distCovered = (Time.time - startTime) * speed;
-      //float fracJourney = distCovered / journeyLength;
+      if (lerpActive)
+      {
+        float fracComplete = (Time.time - startTime) / lerpTime;
+        transform.position = player.position + Vector3.Lerp(offset, nextOffset, fracComplete);
 
-     // transform.position = Vector3.Lerp(transform.position, player.position + offset);
-      transform.position = player.position + offset;
+        if (fracComplete >= 1)
+        {
+          offset = nextOffset;
+          lerpActive = false;
+        }
+      }
+      else
+      {
+          transform.position = player.position + offset;
+      }
+      
       transform.LookAt(player.position);
     }
 
     public void ChangeAngle(float angle) {
-      offset = Quaternion.AngleAxis(angle, Vector3.up) * offset;
+      nextOffset = Quaternion.AngleAxis(angle, Vector3.up) * offset;
+      StartLerping();
+    }
+
+    private void StartLerping()
+    {
+      startTime = Time.time;
+      lerpActive = true;
     }
   }
