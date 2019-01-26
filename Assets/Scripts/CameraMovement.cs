@@ -23,6 +23,7 @@ public class CameraMovement : MonoBehaviour
                 ballRb.AddForce(ballDirection * 400.0f);
                 break;
             case "Down":
+                ballRb.AddForce(-ballDirection * 400.0f);
                 break;
             case "Left":
                 ballDirection = Quaternion.Euler(0, -90, 0) * ballDirection;
