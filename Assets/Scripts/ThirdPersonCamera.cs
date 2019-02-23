@@ -20,7 +20,8 @@ using UnityEngine;
   
 
     void Start () {
-      offset = new Vector3(player.position.x, player.position.y + 8.0f, player.position.z - 7.0f);
+      //offset = new Vector3(player.position.x, player.position.y + 4.0f, player.position.z - 8.0f);
+      offset = new Vector3(0, 4.0f, 8.0f);
     }
 
     void LateUpdate()
@@ -45,8 +46,16 @@ using UnityEngine;
     }
 
     public void ChangeAngle(float angle) {
-      nextOffset = Quaternion.AngleAxis(angle, Vector3.up) * offset;
-      StartLerping();
+      if (!lerpActive)
+      {
+        nextOffset = Quaternion.AngleAxis(angle, Vector3.up) * offset;
+        StartLerping();
+      }
+      else
+      {
+        nextOffset = Quaternion.AngleAxis(angle, Vector3.up) * nextOffset;
+      }
+      
     }
 
     private void StartLerping()

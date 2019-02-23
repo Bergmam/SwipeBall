@@ -20,10 +20,10 @@ public class CameraMovement : MonoBehaviour
     {
         switch (data.Direction.ToString()){
             case "Up":
-                ballRb.AddForce(ballDirection * 400.0f);
+                ballRb.AddForce(-ballDirection * 400.0f);
                 break;
             case "Down":
-                ballRb.AddForce(-ballDirection * 400.0f);
+                ballRb.AddForce(ballDirection * 400.0f);
                 break;
             case "Left":
                 ballDirection = Quaternion.Euler(0, -90, 0) * ballDirection;
